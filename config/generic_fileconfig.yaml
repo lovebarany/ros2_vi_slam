@@ -1,0 +1,5 @@
+/ros2_vi_slam/slam_sys:
+  ros__parameters:
+    settings_file: SETTINGS_FILE
+    vocabulary_file: VOCAB_FILE
+
