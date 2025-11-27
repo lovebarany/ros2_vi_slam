@@ -30,7 +30,7 @@ VIStereoNode::VIStereoNode() : Node("vi_stero_node")
     this->declare_parameter("settings_file", "not_set");
     this->declare_parameter("trajectory_file", "not set");
     this->declare_parameter("keyframe_trajectory_file", "not set");
-    this->declare_parameter("enable_window", true);
+    this->declare_parameter("enable_window", false);
     this->declare_parameter("topic_im_left", "/cam0/image_raw");
     this->declare_parameter("topic_im_right", "/cam1/image_raw");
     this->declare_parameter("topic_imu", "/imu0");
