@@ -81,7 +81,7 @@ cd config
 In `config/topicconfig.yaml`, you specify the topics that the node listens to, and the topic the node outputs odometry to. This has sensible default values, but change them accordingly if your dataset or sensors outputs data to different topics.
 
 In `config/generic_fileconfig.yaml`, there are two values that need to be set: the path to the settings file for the sensors you're working with, and the path to the vocabulary file ORB-SLAM3 uses. Begin by copying the generic file to one looked for by the node (untracked by git):
-```
+```bash
 cp generic_fileconfig.yaml fileconfig.yaml
 ```
 And then edit `fileconfig.yaml` accordingly. For instance, if you're testing with the TUM-VI dataset, you could use files provided with ORB-SLAM3 as:
