@@ -1,6 +1,6 @@
-# ROS2 stereo visual-inertial ORB-SLAM3 node
+# ROS2 visual-inertial ORB-SLAM3 node
 
-There are a couple of nodes that do similar things available online, but I did not find one that matched what I needed. This one is specifically for ROS2, and using the visual-inertial mode of ORB-SLAM3, expecting stereo images.
+There are a couple of nodes that do similar things available online, but I did not find one that matched what I needed. This one is specifically for ROS2, and using the visual-inertial mode of ORB-SLAM3. There is one node for monocular, and one for stereo images.
 
 Made for a Jetson Orin Nano 8GB, which runs Ubuntu 22.04. The ROS2 version used is Humble.
 
@@ -78,20 +78,24 @@ The node is configurable in a couple of ways, some of which need to be set befor
 ```bash
 cd config
 ```
-In `config/topicconfig.yaml`, you specify the topics that the node listens to, and the topic the node outputs odometry to. This has sensible default values, but change them accordingly if your dataset or sensors outputs data to different topics.
+In `config/generic_topicconfig[stereo,mono].yaml`, you specify the topics that the node listens to, and the topic the node outputs odometry to. This has sensible default values, but change them accordingly if your dataset or sensors outputs data to different topics.
 
-In `config/generic_fileconfig.yaml`, there are two values that need to be set: the path to the settings file for the sensors you're working with, and the path to the vocabulary file ORB-SLAM3 uses. Begin by copying the generic file to one looked for by the node (untracked by git):
+In `config/generic_fileconfig[stereo,mono].yaml`, there are two values that need to be set: the path to the settings file for the sensors you're working with, and the path to the vocabulary file ORB-SLAM3 uses. Begin by copying the generic file to one looked for by the node (untracked by git):
 ```bash
-cp generic_fileconfig.yaml fileconfig.yaml
+cp generic_fileconfig[stereo,mono].yaml fileconfig[stereo,mono].yaml
 ```
 And then edit `fileconfig.yaml` accordingly. For instance, if you're testing with the TUM-VI dataset, you could use files provided with ORB-SLAM3 as:
 ```yaml
-/ros2_vi_slam/slam_sys:
+/ros2_vi_slam/stereo_slam_sys:
   ros__parameters:
     settings_file: <path to ORB-SLAM3>/Examples/Stereo-Inertial/TUM-VI.yaml
     vocabulary_file: <path to ORB-SLAM3>/Vocabulary/ORBvoc.txt
 ```
 Replace `<path to ORB-SLAM3>` with the path to where you downloaded ORB-SLAM3 to.
+
+All files except for the generic ones in `config/` are untracked by git, as to not litter the repository.
+
+You can also create your own launch files, if you wish to configure the node in some special way, or use some specific configuration file. As in `config/`, all files in `launch/` are untracked except for the generic stereo/mono launch files.
 
 Move back to your root ROS workspace:
 ```bash
@@ -107,15 +111,15 @@ colcon build
 While in the root ROS workspace, run the following commands in one terminal, and keep it open:
 ```bash
 source install/local_setup.bash
-ros2 launch ros2_vi_slam vi_slam_launch.py enable_window:='True'
+ros2 launch ros2_vi_slam [stereo,mono]_launch.py enable_window:='True'
 ```
-This should start up the node, and the ORB-SLAM3 system. The `enable_window:='True'` parameter tells the system to open a Pangolin window. To run it headless, simply don't pass the parameter.
+This should start up the node, and the stereo/mono ORB-SLAM3 system. The `enable_window:='True'` parameter tells the system to open a Pangolin window. To run it headless, simply don't pass the parameter.
 
 Then you simply start providing data to the topics the node expects, for instance using `ros2 bag play` or using some driver node.
 
 By default, when the system is shut down, the trajectory and keyframe trajectory are saved in `/home/<your user>/trajectory-<time node was launched>.txt` and `/home/<your user>/keyframe-trajectory-<time node was launched>.txt`. These can be changed by specifying the `trajectory_file` and `keyframe_trajectory_file` parameters when launching the node, for instance:
 ```bash
-ros2 launch ros2_vi_slam vi_slam_launch.py trajectory_file:='/home/<your user>/traj-1.txt keyframe_trajectory_file:='/home/<your user>/kf-traj-1.txt'
+ros2 launch ros2_vi_slam [stereo,mono]_launch.py trajectory_file:='/home/<your user>/traj-1.txt keyframe_trajectory_file:='/home/<your user>/kf-traj-1.txt'
 ```
 
 # Common Jetson-related problems
