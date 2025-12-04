@@ -128,3 +128,4 @@ For best results, you should probably build OpenCV as well: [instructions here](
 
 # Not implemented yet/Todos
 - [ ] Make it easier to specify vocabulary and settings files, to remove the need to rebuild each time.
+- [ ] Move common code from mono/stereo to base node

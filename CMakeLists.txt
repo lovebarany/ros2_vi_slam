@@ -38,11 +38,12 @@ include_directories(
     ${ORB_SLAM3_DIR}/Thirdparty/Sophus
 )
 
-add_executable(ros2_vi_slam src/ros_vi_stereo.cpp src/vi_stereo_node.cpp)
+add_executable(stereo_vi_slam src/ros_vi_stereo.cpp src/vi_stereo_node.cpp)
+add_executable(mono_vi_slam src/ros_vi_mono.cpp src/vi_mono_node.cpp)
 
 link_directories(${ORB_SLAM3_DIR})
 
-target_link_libraries(ros2_vi_slam
+target_link_libraries(stereo_vi_slam
     ${cv_bridge_LIBRARIES}
     ${OpenCV_LIBS}
     ${ORB_SLAM3_DIR}/lib/libORB_SLAM3.so
@@ -51,7 +52,23 @@ target_link_libraries(ros2_vi_slam
     ${PANGOLIN_LIB_DIR}
 )
 
-ament_target_dependencies(ros2_vi_slam
+target_link_libraries(mono_vi_slam
+    ${cv_bridge_LIBRARIES}
+    ${OpenCV_LIBS}
+    ${ORB_SLAM3_DIR}/lib/libORB_SLAM3.so
+    ${OPENGL_LIBRARIES}
+    ${GLEW_LIBRARIES}
+    ${PANGOLIN_LIB_DIR}
+)
+
+ament_target_dependencies(stereo_vi_slam
+    rclcpp
+    sensor_msgs
+    cv_bridge
+    nav_msgs
+)
+
+ament_target_dependencies(mono_vi_slam
     rclcpp
     sensor_msgs
     cv_bridge
@@ -59,7 +76,8 @@ ament_target_dependencies(ros2_vi_slam
 )
 
 install(TARGETS
-    ros2_vi_slam
+    stereo_vi_slam
+    mono_vi_slam
     DESTINATION lib/${PROJECT_NAME}
 )
 

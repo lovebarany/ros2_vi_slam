@@ -1,2 +1,6 @@
-config/fileconfig.yaml
+config/*
+!config/generic_*
+launch/*
+!launch/mono_launch.py
+!launch/stereo_launch.py
 tags*

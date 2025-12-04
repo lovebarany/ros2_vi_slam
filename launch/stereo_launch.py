@@ -16,9 +16,9 @@ def generate_launch_description():
         DeclareLaunchArgument('keyframe_trajectory_file', default_value=f'{homedir}/keyframe-trajectory-{launchtime}.txt'),
         Node(
             package='ros2_vi_slam',
-            executable='ros2_vi_slam',
+            executable='stereo_vi_slam',
             namespace='ros2_vi_slam',
-            name='slam_sys',
+            name='stereo_slam_sys',
             parameters = [
                 { 
                  'enable_window': LaunchConfiguration('enable_window'),

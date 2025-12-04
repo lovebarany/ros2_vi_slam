@@ -3,8 +3,8 @@
 <package format="3">
   <name>ros2_vi_slam</name>
   <version>0.0.1</version>
-  <description>ROS2 node for visual-inertial stereo ORB-SLAM3 tracking</description>
-  <maintainer email="love.barany@eit.lth.se">Love Barany</maintainer>
+  <description>ROS2 nodes for mono and stereo visual-inertial ORB-SLAM3 tracking</description>
+  <maintainer email="love.barany@eit.lth.se">Love Bárány</maintainer>
   <license>GPL 3.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

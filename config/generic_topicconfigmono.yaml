@@ -1,0 +1,6 @@
+/ros2_vi_slam/mono_slam_sys:
+  ros__parameters:
+    topic_im: /cam0/image_raw
+    topic_imu: /imu0
+    topic_odom: /odom
+
